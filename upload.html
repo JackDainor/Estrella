@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Casa en Alquiler - Puertas Abiertas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .preview-img { transition: all 0.3s ease; }
+        input[type="file"] { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white text-2xl font-bold">PA</div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-emerald-700">Puertas Abiertas</h1>
+                        <p class="text-xs text-emerald-600 -mt-1">Satélite Norte</p>
+                    </div>
+                </a>
+            </div>
+            <a href="index.html" class="text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-2">
+                ← Volver al Inicio
+            </a>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-3 bg-emerald-100 text-emerald-700 px-6 py-3 rounded-3xl text-sm font-medium mb-4">
+                <i class="fa-solid fa-plus"></i>
+                PUBLICAR PROPIEDAD
+            </div>
+            <h1 class="text-5xl font-bold text-gray-900 mb-4">Sube tu casa en alquiler</h1>
+            <p class="text-xl text-gray-600 max-w-md mx-auto">
+                Completa el formulario y llega a posibles inquilinos en Satélite Norte
+            </p>
+        </div>
+
+        <form id="propertyForm" action="https://formspree.io/f/xlgypvka" method="POST" enctype="multipart/form-data" class="bg-white rounded-3xl shadow-xl p-10 space-y-10">
+            
+            <!-- Datos del Propietario -->
+            <div>
+                <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3">
+                    <span class="text-emerald-600">👤</span> Información del Propietario
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo *</label>
+                        <input type="text" name="nombre" required class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Número de WhatsApp *</label>
+                        <input type="tel" name="whatsapp" required placeholder="+591 63614354" class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalles de la Propiedad -->
+            <div>
+                <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3">
+                    <span class="text-emerald-600">🏠</span> Detalles de la Casa
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Dirección Completa *</label>
+                        <input type="text" name="direccion" required placeholder="Calle, Número, Colonia, Satélite Norte" class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-emerald-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Precio Mensual (Bs) *</label>
+                        <div class="relative">
+                            <span class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500">Bs</span>
+                            <input type="number" name="precio" required placeholder="8500" class="w-full pl-10 px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-emerald-500">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Número de Habitaciones *</label>
+                        <input type="number" name="habitaciones" required min="1" placeholder="3" class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-emerald-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Número de Baños *</label>
+                        <input type="number" name="banos" required min="1" placeholder="2" class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-emerald-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tamaño (m²)</label>
+                        <input type="number" name="tamanio" placeholder="120" class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Descripción -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Descripción de la Propiedad *</label>
+                <textarea name="descripcion" rows="5" required placeholder="Describe la casa: amenidades, características especiales, reglas, etc." class="w-full px-5 py-4 border border-gray-300 rounded-3xl focus:outline-none focus:border-emerald-500"></textarea>
+            </div>
+
+
+            <input type="hidden" name="_subject" value="Nueva propiedad publicada - Puertas Abiertas">
+            <input type="hidden" name="_next" value="https://tu-sitio.com/gracias.html">
+            <input type="hidden" name="_captcha" value="false">
+
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-6 rounded-3xl text-xl font-semibold flex items-center justify-center gap-3 transition-all">
+                <i class="fa-solid fa-paper-plane"></i>
+                Enviar datos
+            </button>
+        </form>
+    </div>
+
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center text-sm">
+        <p>&copy; 2026 Puertas Abiertas en Satélite Norte. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        const photoInput = document.getElementById('photos');
+        const previewContainer = document.getElementById('previewContainer');
+
+        photoInput.addEventListener('change', function(e) {
+            if (this.files.length > 4) {
+                alert("Solo puedes subir máximo 4 fotos");
+                this.value = '';
+                return;
+            }
+            previewContainer.innerHTML = '';
+            Array.from(this.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    const div = document.createElement('div');
+                    div.className = "relative";
+                    div.innerHTML = `<img src="${ev.target.result}" class="w-full h-40 object-cover rounded-2xl preview-img">`;
+                    previewContainer.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        console.log("%cPágina de Subir Propiedad lista", "color: #10b981; font-weight: bold");
+    </script>
+</body>
+</html>

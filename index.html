@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puertas Abiertas en Satélite Norte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://picsum.photos/id/1015/1920/1080');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white text-2xl font-bold">PA</div>
+                <div>
+                    <h1 class="text-2xl font-bold text-emerald-700">Puertas Abiertas</h1>
+                    <p class="text-xs text-emerald-600 -mt-1">Satélite Norte</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#" class="nav-link text-gray-700 hover:text-emerald-600">Inicio</a>
+                <a href="#nosotros" class="nav-link text-gray-700 hover:text-emerald-600">Nosotros</a>
+                <a href="#servicios" class="nav-link text-gray-700 hover:text-emerald-600">Servicios</a>
+                <a href="#seguridad" class="nav-link text-gray-700 hover:text-emerald-600">Seguridad</a>
+                <a href="#contacto" class="nav-link text-gray-700 hover:text-emerald-600">Contacto</a>
+            </div>
+       
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-screen flex items-center text-white">
+        <div class="max-w-7xl mx-auto px-6 pt-20">
+            <div class="max-w-2xl">
+                <h2 class="text-6xl md:text-7xl font-bold leading-tight mb-6">
+                    Encuentra tu <span class="text-emerald-400">hogar ideal</span>
+                </h2>
+                <p class="text-xl md:text-2xl mb-10 text-gray-200">
+                    La plataforma más confiable para alquilar y publicar casas en Satélite Norte y alrededores.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="upload.html" 
+                            class="group bg-white text-emerald-700 hover:bg-emerald-50 px-10 py-5 rounded-2xl text-xl font-semibold flex items-center justify-center gap-3 transition-all shadow-xl">
+                        <i class="fa-solid fa-plus"></i>
+                        Subir Casa en Alquiler
+                    </a>
+                    
+                    <a href="buscar.html" 
+                            class="group bg-transparent border-2 border-white hover:bg-white hover:text-emerald-700 px-10 py-5 rounded-2xl text-xl font-semibold flex items-center justify-center gap-3 transition-all">
+                        <i class="fa-solid fa-search"></i>
+                        Buscar Casas
+                    </a>
+                </div>
+                
+     
+            </div>
+        </div>
+    </header>
+
+    <!-- About Us -->
+    <section id="nosotros" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                        <i class="fa-solid fa-info-circle"></i>
+                        QUIÉNES SOMOS
+                    </div>
+                    <h2 class="text-5xl font-bold leading-tight mb-6 text-gray-900">
+                        Puertas Abiertas en Satélite Norte
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Somos una plataforma local dedicada a conectar propietarios con inquilinos en la zona de Satélite Norte. 
+                        Facilitamos el proceso de alquiler de manera segura, transparente y sencilla.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 bg-emerald-100 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl">🏠</div>
+                            <div>
+                                <h3 class="font-semibold text-xl mb-1">Misión</h3>
+                                <p class="text-gray-600">Hacer que encontrar o alquilar una casa sea tan fácil como abrir una puerta.</p>
+                            </div>
+                        </div>
+              
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <img src="https://picsum.photos/id/1016/800/600" 
+                         alt="Casa moderna en Satélite Norte" 
+                         class="rounded-3xl shadow-2xl">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-3xl shadow-xl max-w-[220px]">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="text-emerald-500">
+                                <i class="fa-solid fa-star text-3xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-3xl text-emerald-600">4.98</div>
+                                <div class="text-sm text-gray-500">Calificación promedio</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">"La mejor plataforma para alquilar en la zona. Muy recomendada."</p>
+                        <div class="text-xs mt-3 text-gray-500">- María López, Inquilina</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Offer -->
+    <section id="servicios" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-block bg-emerald-100 text-emerald-700 px-5 py-2 rounded-full text-sm font-medium mb-4">QUÉ OFRECEMOS</div>
+                <h2 class="text-5xl font-bold text-gray-900">Todo lo que necesitas para alquilar</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl card-hover border border-transparent hover:border-emerald-200">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center text-4xl mb-6">📤</div>
+                    <h3 class="text-2xl font-semibold mb-3">Publica tu propiedad</h3>
+                    <p class="text-gray-600">Sube fotos, descripción detallada, precio y condiciones. Llega a miles de posibles inquilinos.</p>
+                    <ul class="mt-8 space-y-3 text-sm">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Fotos de alta calidad</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Verificación de identidad</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Gestión de contactos</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-3xl card-hover border border-transparent hover:border-emerald-200">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center text-4xl mb-6">🔍</div>
+                    <h3 class="text-2xl font-semibold mb-3">Busca tu próximo hogar</h3>
+                    <p class="text-gray-600">Filtros avanzados: precio, número de habitaciones, zona, amenidades y más.</p>
+                    <ul class="mt-8 space-y-3 text-sm">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Búsqueda inteligente</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Mapa interactivo</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Contacto directo</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-3xl card-hover border border-transparent hover:border-emerald-200">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center text-4xl mb-6">🛡️</div>
+                    <h3 class="text-2xl font-semibold mb-3">Seguridad primero</h3>
+                    <p class="text-gray-600">Verificamos perfiles, sistema de calificaciones y soporte 24/7.</p>
+                    <ul class="mt-8 space-y-3 text-sm">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Verificación de usuarios</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Pagos seguros</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Soporte dedicado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security -->
+    <section id="seguridad" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5">
+                    <h2 class="text-5xl font-bold mb-6">Tu seguridad es nuestra prioridad</h2>
+                    <p class="text-xl text-gray-600 mb-10">
+                        Implementamos las mejores prácticas para proteger a nuestros usuarios.
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-5">
+                            <div class="text-emerald-600 text-3xl">🔒</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Verificación de Identidad</h4>
+                                <p class="text-gray-600">Todos los usuarios deben verificar su identidad con documentos oficiales.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-5">
+                            <div class="text-emerald-600 text-3xl">⭐</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Sistema de Reseñas</h4>
+                                <p class="text-gray-600">Calificaciones transparentes basadas en experiencias reales.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-5">
+                            <div class="text-emerald-600 text-3xl">💬</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Soporte 24/7</h4>
+                                <p class="text-gray-600">Equipo listo para ayudarte ante cualquier inconveniente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-7">
+                    <div class="bg-emerald-50 border border-emerald-100 p-8 rounded-3xl">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-2xl">
+                                <div class="text-emerald-500 mb-4"><i class="fa-solid fa-shield-halved text-5xl"></i></div>
+                                <div class="font-bold text-xl">Certificado SSL</div>
+                                <div class="text-sm text-gray-500">Conexiones seguras</div>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl">
+                                <div class="text-emerald-500 mb-4"><i class="fa-solid fa-user-check text-5xl"></i></div>
+                                <div class="font-bold text-xl">KYC Completo</div>
+                                <div class="text-sm text-gray-500">Conoce a tu cliente</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold">Lo que dicen nuestros usuarios</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl">
+                    <div class="flex gap-1 text-amber-400 mb-6">
+                        ★★★★☆
+                    </div>
+                    <p class="italic text-gray-600">"Encontré la casa perfecta en menos de una semana. El proceso fue muy sencillo y el propietario súper amable."</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
+                        <div>
+                            <div class="font-medium">Carlos Mendoza</div>
+                            <div class="text-sm text-gray-500">Inquilino</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-3xl">
+                    <div class="flex gap-1 text-amber-400 mb-6">
+                        ★★★★★
+                    </div>
+                    <p class="italic text-gray-600">"Publiqué mi casa y en 10 días ya tenía inquilino. Excelente plataforma y gran alcance local."</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
+                        <div>
+                            <div class="font-medium">Ana Rodríguez</div>
+                            <div class="text-sm text-gray-500">Propietaria</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-3xl">
+                    <div class="flex gap-1 text-amber-400 mb-6">
+                        ★★★★☆
+                    </div>
+                    <p class="italic text-gray-600">"Me encanta que sea una plataforma local. Siento más confianza al tratar con gente de mi comunidad."</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
+                        <div>
+                            <div class="font-medium">José Ramírez</div>
+                            <div class="text-sm text-gray-500">Usuario</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contacto" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-md mx-auto mb-16">
+                <h2 class="text-5xl font-bold mb-4">¿Tienes dudas?</h2>
+                <p class="text-gray-600">Estamos aquí para ayudarte. Contáctanos.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Nombre</label>
+                            <input type="text" class="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Correo electrónico</label>
+                            <input type="email" class="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Mensaje</label>
+                            <textarea rows="5" class="w-full px-6 py-4 rounded-3xl border border-gray-200 focus:outline-none focus:border-emerald-500"></textarea>
+                        </div>
+                        <button type="button" onclick="submitForm()" 
+                                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-semibold text-lg transition-colors">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="space-y-8 pt-8">
+                    <div class="flex gap-6">
+                        <div class="text-emerald-600 text-4xl">📍</div>
+                        <div>
+                            <div class="font-semibold">Dirección</div>
+                            <div class="text-gray-600">Av. Satélite Norte #1234, Satélite Norte, Estado de México</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="text-emerald-600 text-4xl">📞</div>
+                        <div>
+                            <div class="font-semibold">Teléfono</div>
+                            <div class="text-gray-600">+52 55 1234 5678</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="text-emerald-600 text-4xl">✉️</div>
+                        <div>
+                            <div class="font-semibold">Email</div>
+                            <div class="text-gray-600">hola@puertasabiertas.mx</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-10">
+                <div>
+                    <div class="flex items-center gap-3 text-white mb-6">
+                        <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-2xl font-bold">PA</div>
+                        <div class="font-bold text-2xl">Puertas Abiertas</div>
+                    </div>
+                    <p class="text-sm">Conectando hogares y familias en Satélite Norte desde 2026.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-white mb-6">Plataforma</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Buscar propiedades</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Publicar propiedad</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cómo funciona</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-white mb-6">Compañía</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#nosotros" class="hover:text-white transition-colors">Sobre nosotros</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Carreras</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-white mb-6">Legal</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Términos y condiciones</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacidad</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-16 pt-8 text-center text-sm">
+                <p>&copy; 2026 Puertas Abiertas en Satélite Norte. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+        function goToUpload() {
+            alert("🚀 Redirigiendo a la página de subir propiedad...\n\n(Esta funcionalidad se desarrollará en el siguiente paso)");
+        }
+        
+        function goToSearch() {
+            alert("🔎 Redirigiendo a la página de búsqueda...\n\n(Esta funcionalidad se desarrollará en el siguiente paso)");
+        }
+        
+        function loginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+        
+        function registerModal() {
+            alert("Registro: En la siguiente fase implementaremos el formulario completo.");
+        }
+        
+        function closeModals() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+        
+        function fakeLogin() {
+            alert("✅ Sesión iniciada (demo)");
+            closeModals();
+        }
+        
+        function submitForm() {
+            alert("✅ Mensaje enviado. Gracias por contactarnos.");
+        }
+        
+        console.log("%cPuertas Abiertas - Sitio web listo", "color: #10b981; font-size: 14px; font-weight: bold");
+    </script>
+</body>
+</html>
