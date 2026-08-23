@@ -72,7 +72,7 @@
 
         <!-- Resultados -->
         <div id="propertiesGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Las tarjetas se generan con JavaScript (datos de ejemplo) -->
+            <!-- Las tarjetas se generan con JavaScript -->
         </div>
     </div>
 
@@ -130,7 +130,8 @@
                 const card = document.createElement('div');
                 card.className = "bg-white rounded-3xl overflow-hidden property-card border border-gray-100";
                 card.innerHTML = `
-                    <img src="\( {property.image}" alt=" \){property.title}" class="w-full h-56 object-cover">
+                    <img src="\( {property.image}" alt=" \){property.title}" class="w-full h-56 object-cover"
+                         onerror="this.src='https://picsum.photos/600/400?grayscale'; this.onerror=null;">
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div>
@@ -152,7 +153,7 @@
                         
                         <button onclick="contactOwner('\( {property.whatsapp}', ' \){property.title}')" 
                                 class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 transition-colors">
-                            <i class="fa-solid fa-whatsapp text-xl"></i>
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
                             Contactar por WhatsApp
                         </button>
                     </div>
@@ -164,7 +165,8 @@
         // Función para contactar
         function contactOwner(phone, title) {
             const message = `Hola, estoy interesado en la propiedad: ${title}. ¿Está disponible?`;
-            const url = `https://wa.me/\( {phone.replace(/\D/g,'')}?text= \){encodeURIComponent(message)}`;
+            const cleanPhone = phone.replace(/\D/g, '');
+            const url = `https://wa.me/\( {cleanPhone}?text= \){encodeURIComponent(message)}`;
             window.open(url, '_blank');
         }
 
@@ -179,7 +181,7 @@
                                     prop.address.toLowerCase().includes(searchTerm) ||
                                     prop.description.toLowerCase().includes(searchTerm);
                 
-                const matchesPrice = !maxPrice || (maxPrice === 'all' || prop.price <= parseInt(maxPrice));
+                const matchesPrice = !maxPrice || maxPrice === 'all' || prop.price <= parseInt(maxPrice);
                 const matchesRooms = prop.rooms >= minRooms;
                 
                 return matchesSearch && matchesPrice && matchesRooms;
