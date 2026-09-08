@@ -9,12 +9,12 @@
 // 6. Copia los datos y pégalos abajo
 
 const firebaseConfig = {
-  apiKey: "TU_API_KEY_AQUI",
-  authDomain: "TU_PROYECTO.firebaseapp.com",
-  projectId: "TU_PROYECTO",
-  storageBucket: "TU_PROYECTO.appspot.com",
-  messagingSenderId: "TU_SENDER_ID",
-  appId: "TU_APP_ID"
+  apiKey: "AIzaSyBSWtUWWdKf-xxFd2-aJAwwqxHD1nFaYTg",
+  authDomain: "puertasabiertas-a040f.firebaseapp.com",
+  projectId: "puertasabiertas-a040f",
+  storageBucket: "puertasabiertas-a040f.firebasestorage.app",
+  messagingSenderId: "658833525151",
+  appId: "1:658833525151:web:1f1d55fc5908cb095655aa"
 };
 
 // Iniciar Firebase
@@ -34,3 +34,4 @@ const WHATSAPP_INTERMEDIARIO = "59163614354";
 // Contraseña simple para la página de administrador
 // Cámbiala por una que solo tú sepas
 const CLAVE_ADMIN = "admin123";
+ 
