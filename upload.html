@@ -1,306 +1,206 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publicar Casa - Puertas Abiertas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { font-family: system-ui, sans-serif; }
-        input[type="file"] { display: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicar casa - Puertas Abiertas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body { font-family: system-ui, sans-serif; }
+    input[type="file"] { display: none; }
+  </style>
 </head>
 <body class="bg-gray-50">
 
-    <!-- Barra de arriba -->
-    <nav class="bg-white shadow sticky top-0 z-50">
-        <div class="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-2">
-                <div class="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">PA</div>
-                <span class="font-bold text-emerald-700">Puertas Abiertas</span>
-            </a>
-            <a href="index.html" class="text-emerald-600 text-sm">← Volver</a>
-        </div>
-    </nav>
-
-    <div class="max-w-3xl mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center mb-2">Sube tu casa en alquiler</h1>
-        <p class="text-center text-gray-600 mb-8">Satélite Norte · Santa Cruz · Bolivia</p>
-
-        <!-- Aviso si no hay Firebase -->
-        <div id="avisoConfig" class="hidden mb-6 bg-yellow-50 border border-yellow-300 text-yellow-800 px-4 py-3 rounded-xl text-sm">
-            <strong>Aviso:</strong> Falta configurar Firebase en js/firebase-config.js.
-            Por ahora se guarda en modo demo (solo en tu navegador).
-        </div>
-
-        <form id="formCasa" class="bg-white rounded-2xl shadow-lg p-6 space-y-6">
-
-            <!-- Dueño -->
-            <div>
-                <h2 class="font-bold text-lg mb-3">Datos del dueño</h2>
-                <div class="grid sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm mb-1">Nombre completo *</label>
-                        <input type="text" name="nombre" required placeholder="Juan Pérez"
-                               class="w-full border border-gray-300 rounded-xl px-4 py-3">
-                    </div>
-                    <div>
-                        <label class="block text-sm mb-1">WhatsApp *</label>
-                        <input type="tel" name="whatsapp" required placeholder="591 7XXXXXXX"
-                               class="w-full border border-gray-300 rounded-xl px-4 py-3">
-                        <p class="text-xs text-gray-500 mt-1">Con código de país 591</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Casa -->
-            <div>
-                <h2 class="font-bold text-lg mb-3">Datos de la casa</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm mb-1">Título del anuncio *</label>
-                        <input type="text" name="titulo" required placeholder="Casa con jardín en Satélite Norte"
-                               class="w-full border border-gray-300 rounded-xl px-4 py-3">
-                    </div>
-                    <div>
-                        <label class="block text-sm mb-1">Dirección / Zona *</label>
-                        <input type="text" name="direccion" required placeholder="Av. Satélite Norte, cerca del mercado"
-                               class="w-full border border-gray-300 rounded-xl px-4 py-3">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm mb-1">Precio mensual (Bs) *</label>
-                            <input type="number" name="precio" required min="1" placeholder="2500"
-                                   class="w-full border border-gray-300 rounded-xl px-4 py-3">
-                        </div>
-                        <div>
-                            <label class="block text-sm mb-1">Tamaño (m²)</label>
-                            <input type="number" name="tamanio" placeholder="120"
-                                   class="w-full border border-gray-300 rounded-xl px-4 py-3">
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-sm mb-1">Habitaciones *</label>
-                            <input type="number" name="habitaciones" required min="1" value="2"
-                                   class="w-full border border-gray-300 rounded-xl px-4 py-3">
-                        </div>
-                        <div>
-                            <label class="block text-sm mb-1">Baños *</label>
-                            <input type="number" name="banos" required min="1" value="1"
-                                   class="w-full border border-gray-300 rounded-xl px-4 py-3">
-                        </div>
-                        <div>
-                            <label class="block text-sm mb-1">Tipo</label>
-                            <select name="tipo" class="w-full border border-gray-300 rounded-xl px-4 py-3">
-                                <option value="casa">Casa</option>
-                                <option value="departamento">Departamento</option>
-                                <option value="habitacion">Habitación</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm mb-1">Descripción *</label>
-                        <textarea name="descripcion" rows="4" required
-                                  placeholder="Describe la casa: servicios, amoblado, reglas, etc."
-                                  class="w-full border border-gray-300 rounded-xl px-4 py-3"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fotos: de 1 a 5 -->
-            <div>
-                <label class="block text-sm font-medium mb-2">Fotos de la casa (mínimo 1, máximo 5) *</label>
-                <label for="inputFotos" class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer hover:border-emerald-500 hover:bg-emerald-50">
-                    <i class="fa-solid fa-camera text-3xl text-gray-400 mb-2"></i>
-                    <span class="text-sm text-gray-500">Haz clic para elegir fotos</span>
-                    <span class="text-xs text-gray-400">1 a 5 imágenes (JPG o PNG)</span>
-                </label>
-                <input type="file" id="inputFotos" accept="image/*" multiple>
-                <div id="vistaPrevia" class="grid grid-cols-3 gap-3 mt-4"></div>
-            </div>
-
-            <!-- Mensaje de estado -->
-            <div id="mensaje" class="hidden text-center py-3 rounded-xl text-sm font-medium"></div>
-
-            <button type="submit" id="btnPublicar"
-                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl text-lg font-semibold">
-                <i class="fa-solid fa-paper-plane"></i> Publicar anuncio
-            </button>
-        </form>
+  <!-- Barra -->
+  <nav class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">PA</div>
+        <span class="font-bold text-emerald-700">Puertas Abiertas</span>
+      </a>
+      <a href="index.html" class="text-emerald-600 text-sm">← Volver</a>
     </div>
+  </nav>
 
-    <footer class="text-center text-sm text-gray-500 py-8">
-        © 2026 Puertas Abiertas · Satélite Norte, Santa Cruz, Bolivia
-    </footer>
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-2">Publicar mi casa</h1>
+    <p class="text-center text-gray-600 mb-2">Satélite Norte · Santa Cruz · Bolivia</p>
+    <p class="text-center text-sm text-gray-500 mb-8">
+      Llena el formulario. Los datos y las fotos llegan al correo del intermediario.
+      Él revisa y publica el anuncio en el sitio.
+    </p>
 
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
-    <script src="js/firebase-config.js"></script>
+    <!--
+      FormSubmit es GRATIS.
+      La primera vez que alguien envíe, FormSubmit pedirá confirmar el correo.
+      Abre el correo chambiburgoacarlosdainor@gmail.com y confirma el enlace.
+    -->
+    <form id="formCasa"
+          action="https://formsubmit.co/chambiburgoacarlosdainor@gmail.com"
+          method="POST"
+          enctype="multipart/form-data"
+          class="bg-white rounded-2xl shadow-lg p-6 space-y-6">
 
-    <script>
-        // Variables simples
-        var fotosElegidas = [];
-        var firebaseListo = firebaseConfig.apiKey && firebaseConfig.apiKey.indexOf("TU_API_KEY") === -1;
+      <!-- Campos ocultos de FormSubmit -->
+      <input type="hidden" name="_subject" value="Nueva casa para publicar - Puertas Abiertas">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <!-- Después de enviar, vuelve a esta página con mensaje -->
+      <input type="hidden" name="_next" value="https://TU-SITIO.vercel.app/gracias.html">
 
-        if (!firebaseListo) {
-            document.getElementById("avisoConfig").classList.remove("hidden");
-        }
+      <!-- Datos del dueño -->
+      <div>
+        <h2 class="font-bold text-lg mb-3">Datos del dueño</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm mb-1">Nombre completo *</label>
+            <input type="text" name="nombre" required placeholder="Juan Pérez"
+                   class="w-full border border-gray-300 rounded-xl px-4 py-3">
+          </div>
+          <div>
+            <label class="block text-sm mb-1">WhatsApp *</label>
+            <input type="tel" name="whatsapp" required placeholder="591 7XXXXXXX"
+                   class="w-full border border-gray-300 rounded-xl px-4 py-3">
+            <p class="text-xs text-gray-500 mt-1">Con código de país 591</p>
+          </div>
+        </div>
+        <div class="mt-4">
+          <label class="block text-sm mb-1">Correo del dueño (opcional)</label>
+          <input type="email" name="email_dueno" placeholder="dueno@email.com"
+                 class="w-full border border-gray-300 rounded-xl px-4 py-3">
+        </div>
+      </div>
 
-        // Cuando el usuario elige fotos
-        document.getElementById("inputFotos").addEventListener("change", function () {
-            var archivos = this.files;
+      <!-- Datos de la casa -->
+      <div>
+        <h2 class="font-bold text-lg mb-3">Datos de la casa</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm mb-1">Título del anuncio *</label>
+            <input type="text" name="titulo" required placeholder="Casa con jardín en Satélite Norte"
+                   class="w-full border border-gray-300 rounded-xl px-4 py-3">
+          </div>
+          <div>
+            <label class="block text-sm mb-1">Dirección / Zona *</label>
+            <input type="text" name="direccion" required placeholder="Av. Satélite Norte, cerca del mercado"
+                   class="w-full border border-gray-300 rounded-xl px-4 py-3">
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm mb-1">Precio mensual (Bs) *</label>
+              <input type="number" name="precio" required min="1" placeholder="2500"
+                     class="w-full border border-gray-300 rounded-xl px-4 py-3">
+            </div>
+            <div>
+              <label class="block text-sm mb-1">Tamaño (m²)</label>
+              <input type="number" name="tamanio" placeholder="120"
+                     class="w-full border border-gray-300 rounded-xl px-4 py-3">
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm mb-1">Habitaciones *</label>
+              <input type="number" name="habitaciones" required min="1" value="2"
+                     class="w-full border border-gray-300 rounded-xl px-4 py-3">
+            </div>
+            <div>
+              <label class="block text-sm mb-1">Baños *</label>
+              <input type="number" name="banos" required min="1" value="1"
+                     class="w-full border border-gray-300 rounded-xl px-4 py-3">
+            </div>
+            <div>
+              <label class="block text-sm mb-1">Tipo</label>
+              <select name="tipo" class="w-full border border-gray-300 rounded-xl px-4 py-3">
+                <option value="casa">Casa</option>
+                <option value="departamento">Departamento</option>
+                <option value="habitacion">Habitación</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm mb-1">Descripción *</label>
+            <textarea name="descripcion" rows="4" required
+                      placeholder="Servicios, amoblado, reglas, cercanía a colegios, etc."
+                      class="w-full border border-gray-300 rounded-xl px-4 py-3"></textarea>
+          </div>
+        </div>
+      </div>
 
-            if (archivos.length > 5) {
-                alert("Solo puedes subir máximo 5 fotos");
-                this.value = "";
-                return;
-            }
-            if (archivos.length < 1) {
-                return;
-            }
+      <!-- Fotos 1 a 4 -->
+      <div>
+        <label class="block text-sm font-medium mb-2">Fotos de la casa (mínimo 1, máximo 4) *</label>
+        <label for="inputFotos"
+               class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer hover:border-emerald-500 hover:bg-emerald-50">
+          <i class="fa-solid fa-camera text-3xl text-gray-400 mb-2"></i>
+          <span class="text-sm text-gray-500">Haz clic para elegir fotos</span>
+          <span class="text-xs text-gray-400">1 a 4 imágenes (JPG o PNG)</span>
+        </label>
+        <input type="file" id="inputFotos" name="fotos" accept="image/*" multiple required>
+        <div id="vistaPrevia" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4"></div>
+        <p class="text-xs text-gray-500 mt-2">
+          Las fotos se envían por correo junto con los datos. El intermediario las sube al sitio.
+        </p>
+      </div>
 
-            fotosElegidas = [];
-            for (var i = 0; i < archivos.length; i++) {
-                fotosElegidas.push(archivos[i]);
-            }
+      <button type="submit" id="btnEnviar"
+              class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl text-lg font-semibold">
+        <i class="fa-solid fa-paper-plane"></i> Enviar al intermediario
+      </button>
+    </form>
+  </div>
 
-            // Mostrar vista previa
-            var contenedor = document.getElementById("vistaPrevia");
-            contenedor.innerHTML = "";
+  <footer class="text-center text-sm text-gray-500 py-8">
+    © 2026 Puertas Abiertas · Satélite Norte, Santa Cruz, Bolivia
+  </footer>
 
-            for (var j = 0; j < fotosElegidas.length; j++) {
-                var lector = new FileReader();
-                lector.onload = function (evento) {
-                    var div = document.createElement("div");
-                    div.innerHTML = '<img src="' + evento.target.result + '" class="w-full h-28 object-cover rounded-xl">';
-                    contenedor.appendChild(div);
-                };
-                lector.readAsDataURL(fotosElegidas[j]);
-            }
-        });
+  <script>
+    var inputFotos = document.getElementById("inputFotos");
+    var vistaPrevia = document.getElementById("vistaPrevia");
 
-        // Cuando se envía el formulario
-        document.getElementById("formCasa").addEventListener("submit", async function (e) {
-            e.preventDefault();
+    // Cuando eligen fotos
+    inputFotos.addEventListener("change", function () {
+      var archivos = this.files;
 
-            if (fotosElegidas.length < 1) {
-                alert("Debes subir al menos 1 foto de la casa");
-                return;
-            }
-            if (fotosElegidas.length > 5) {
-                alert("Máximo 5 fotos");
-                return;
-            }
+      if (archivos.length > 4) {
+        alert("Solo puedes subir máximo 4 fotos");
+        this.value = "";
+        vistaPrevia.innerHTML = "";
+        return;
+      }
 
-            var form = e.target;
-            var btn = document.getElementById("btnPublicar");
-            var mensaje = document.getElementById("mensaje");
+      vistaPrevia.innerHTML = "";
 
-            btn.disabled = true;
-            btn.innerHTML = "Publicando...";
-            mensaje.classList.add("hidden");
+      for (var i = 0; i < archivos.length; i++) {
+        (function (file) {
+          var lector = new FileReader();
+          lector.onload = function (e) {
+            var div = document.createElement("div");
+            div.innerHTML = '<img src="' + e.target.result + '" class="w-full h-28 object-cover rounded-xl">';
+            vistaPrevia.appendChild(div);
+          };
+          lector.readAsDataURL(file);
+        })(archivos[i]);
+      }
+    });
 
-            // Datos de la casa
-            var datos = {
-                nombre: form.nombre.value.trim(),
-                whatsapp: form.whatsapp.value.trim().replace(/\s/g, ""),
-                titulo: form.titulo.value.trim(),
-                direccion: form.direccion.value.trim(),
-                precio: Number(form.precio.value),
-                tamanio: Number(form.tamanio.value) || null,
-                habitaciones: Number(form.habitaciones.value),
-                banos: Number(form.banos.value),
-                tipo: form.tipo.value,
-                descripcion: form.descripcion.value.trim(),
-                createdAt: new Date().toISOString(),
-                activo: true
-            };
-
-            try {
-                // Si no hay Firebase → modo demo (localStorage)
-                if (!firebaseListo) {
-                    var lista = JSON.parse(localStorage.getItem("demo_propiedades") || "[]");
-                    var id = "demo_" + Date.now();
-
-                    // Guardar las fotos como base64 (solo para demo)
-                    var imagenesBase64 = [];
-                    for (var i = 0; i < fotosElegidas.length; i++) {
-                        var base64 = await leerArchivoComoBase64(fotosElegidas[i]);
-                        imagenesBase64.push(base64);
-                    }
-
-                    datos.id = id;
-                    datos.imagenes = imagenesBase64;
-                    lista.unshift(datos);
-                    localStorage.setItem("demo_propiedades", JSON.stringify(lista.slice(0, 20)));
-
-                    mensaje.className = "text-center py-3 rounded-xl text-sm font-medium bg-green-50 text-green-700";
-                    mensaje.textContent = "¡Publicado en modo demo! Redirigiendo...";
-                    mensaje.classList.remove("hidden");
-
-                    form.reset();
-                    document.getElementById("vistaPrevia").innerHTML = "";
-                    fotosElegidas = [];
-
-                    setTimeout(function () {
-                        window.location.href = "buscar.html";
-                    }, 1500);
-                    return;
-                }
-
-                // Con Firebase: subir fotos a Storage
-                var urlsImagenes = [];
-                for (var i = 0; i < fotosElegidas.length; i++) {
-                    var archivo = fotosElegidas[i];
-                    var nombreArchivo = "propiedades/" + Date.now() + "_" + i + "_" + archivo.name.replace(/[^a-zA-Z0-9.]/g, "_");
-                    var ref = storage.ref(nombreArchivo);
-                    await ref.put(archivo);
-                    var url = await ref.getDownloadURL();
-                    urlsImagenes.push(url);
-                }
-
-                datos.imagenes = urlsImagenes;
-
-                // Guardar en Firestore
-                await propertiesRef.add(datos);
-
-                mensaje.className = "text-center py-3 rounded-xl text-sm font-medium bg-green-50 text-green-700";
-                mensaje.textContent = "¡Anuncio publicado! Redirigiendo...";
-                mensaje.classList.remove("hidden");
-
-                form.reset();
-                document.getElementById("vistaPrevia").innerHTML = "";
-                fotosElegidas = [];
-
-                setTimeout(function () {
-                    window.location.href = "buscar.html";
-                }, 1500);
-
-            } catch (error) {
-                console.log(error);
-                mensaje.className = "text-center py-3 rounded-xl text-sm font-medium bg-red-50 text-red-700";
-                mensaje.textContent = "Error al publicar. Revisa la configuración de Firebase.";
-                mensaje.classList.remove("hidden");
-            }
-
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Publicar anuncio';
-        });
-
-        // Función auxiliar para convertir archivo a base64 (modo demo)
-        function leerArchivoComoBase64(archivo) {
-            return new Promise(function (resolve) {
-                var lector = new FileReader();
-                lector.onload = function () {
-                    resolve(lector.result);
-                };
-                lector.readAsDataURL(archivo);
-            });
-        }
-    </script>
+    // Validar antes de enviar
+    document.getElementById("formCasa").addEventListener("submit", function (e) {
+      var archivos = inputFotos.files;
+      if (!archivos || archivos.length < 1) {
+        e.preventDefault();
+        alert("Debes subir al menos 1 foto");
+        return;
+      }
+      if (archivos.length > 4) {
+        e.preventDefault();
+        alert("Máximo 4 fotos");
+        return;
+      }
+      document.getElementById("btnEnviar").innerHTML = "Enviando...";
+      document.getElementById("btnEnviar").disabled = true;
+    });
+  </script>
 </body>
 </html>

@@ -1,420 +1,312 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscar Casas - Puertas Abiertas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { font-family: system-ui, sans-serif; }
-        .tarjeta:hover { transform: translateY(-4px); }
-        .tarjeta { transition: 0.2s; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar casas - Puertas Abiertas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body { font-family: system-ui, sans-serif; }
+    .tarjeta { transition: 0.2s; }
+    .tarjeta:hover { transform: translateY(-4px); }
 
-        /* Modal de fotos */
-        #modalFotos {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-        #modalFotos.activo { display: flex; }
-        #modalFotos img {
-            max-height: 80vh;
-            max-width: 100%;
-            border-radius: 12px;
-        }
-    </style>
+    /* Modal de fotos */
+    #modalFotos {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #modalFotos.activo { display: flex; }
+  </style>
 </head>
 <body class="bg-gray-50">
 
-    <!-- Barra de arriba -->
-    <nav class="bg-white shadow sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-2">
-                <div class="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">PA</div>
-                <span class="font-bold text-emerald-700">Puertas Abiertas</span>
-            </a>
-            <div class="flex items-center gap-3">
-                <a href="upload.html" class="bg-emerald-600 text-white text-sm px-4 py-2 rounded-xl">+ Publicar</a>
-                <a href="admin.html" class="text-gray-500 text-sm hidden sm:inline">Admin</a>
-            </div>
-        </div>
-    </nav>
+  <!-- Barra -->
+  <nav class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">PA</div>
+        <span class="font-bold text-emerald-700">Puertas Abiertas</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="upload.html" class="bg-emerald-600 text-white text-sm px-4 py-2 rounded-xl">+ Publicar</a>
+        <a href="index.html" class="text-emerald-600 text-sm hidden sm:inline">← Inicio</a>
+      </div>
+    </div>
+  </nav>
 
-    <div class="max-w-6xl mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-1">Casas en Alquiler</h1>
-        <p class="text-gray-600 mb-6">Satélite Norte · Santa Cruz · Bolivia</p>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-1">Casas en alquiler</h1>
+    <p class="text-gray-600 mb-6">Satélite Norte · Santa Cruz · Bolivia · Precios en Bs</p>
 
-        <!-- Filtros -->
-        <div class="flex flex-wrap gap-3 mb-6">
-            <input type="text" id="buscarTexto" placeholder="Buscar por zona o palabra..."
-                   class="border border-gray-300 rounded-xl px-4 py-2 flex-1 min-w-[180px]">
-            <select id="filtroPrecio" class="border border-gray-300 rounded-xl px-4 py-2">
-                <option value="all">Cualquier precio</option>
-                <option value="1500">Hasta Bs 1.500</option>
-                <option value="2500">Hasta Bs 2.500</option>
-                <option value="4000">Hasta Bs 4.000</option>
-                <option value="6000">Hasta Bs 6.000</option>
-                <option value="10000">Hasta Bs 10.000</option>
-            </select>
-            <select id="filtroHab" class="border border-gray-300 rounded-xl px-4 py-2">
-                <option value="">Habitaciones</option>
-                <option value="1">1+</option>
-                <option value="2">2+</option>
-                <option value="3">3+</option>
-                <option value="4">4+</option>
-            </select>
-        </div>
-
-        <p id="contador" class="text-sm text-gray-500 mb-4">Cargando...</p>
-
-        <!-- Lista de casas -->
-        <div id="listaCasas" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-
-        <!-- Si no hay resultados -->
-        <div id="sinResultados" class="hidden text-center py-16">
-            <p class="text-xl text-gray-600 mb-4">No hay casas con esos filtros</p>
-            <a href="upload.html" class="bg-emerald-600 text-white px-6 py-3 rounded-xl inline-block">Publicar una casa</a>
-        </div>
+    <!-- Filtros -->
+    <div class="flex flex-wrap gap-3 mb-6">
+      <input type="text" id="buscarTexto" placeholder="Buscar por zona o palabra..."
+             class="border border-gray-300 rounded-xl px-4 py-2 flex-1 min-w-[180px]">
+      <select id="filtroPrecio" class="border border-gray-300 rounded-xl px-4 py-2">
+        <option value="all">Cualquier precio</option>
+        <option value="1500">Hasta Bs 1.500</option>
+        <option value="2500">Hasta Bs 2.500</option>
+        <option value="4000">Hasta Bs 4.000</option>
+        <option value="6000">Hasta Bs 6.000</option>
+        <option value="10000">Hasta Bs 10.000</option>
+      </select>
+      <select id="filtroHab" class="border border-gray-300 rounded-xl px-4 py-2">
+        <option value="">Habitaciones</option>
+        <option value="1">1+</option>
+        <option value="2">2+</option>
+        <option value="3">3+</option>
+        <option value="4">4+</option>
+      </select>
     </div>
 
-    <!-- Modal para ver todas las fotos -->
-    <div id="modalFotos">
-        <div class="bg-white rounded-2xl p-4 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="font-bold text-lg" id="modalTitulo">Fotos</h3>
-                <button onclick="cerrarModal()" class="text-2xl text-gray-500 hover:text-black">&times;</button>
-            </div>
-            <div id="modalGaleria" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-            <div class="mt-4 flex justify-center gap-3">
-                <button onclick="fotoAnterior()" class="px-4 py-2 bg-gray-200 rounded-xl">← Anterior</button>
-                <span id="contadorFoto" class="py-2 text-sm text-gray-600"></span>
-                <button onclick="fotoSiguiente()" class="px-4 py-2 bg-gray-200 rounded-xl">Siguiente →</button>
-            </div>
-            <div class="mt-4 text-center">
-                <img id="fotoGrande" src="" class="mx-auto max-h-80 rounded-xl object-contain">
-            </div>
-        </div>
+    <p id="contador" class="text-sm text-gray-500 mb-4">Cargando...</p>
+
+    <!-- Lista -->
+    <div id="listaCasas" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <div id="sinResultados" class="hidden text-center py-16">
+      <p class="text-xl text-gray-600 mb-4">No hay casas con esos filtros</p>
+      <a href="upload.html" class="bg-emerald-600 text-white px-6 py-3 rounded-xl inline-block">Publicar una casa</a>
     </div>
+  </div>
 
-    <footer class="text-center text-sm text-gray-500 py-8">
-        © 2026 Puertas Abiertas · Satélite Norte, Santa Cruz, Bolivia
-    </footer>
+  <!-- Modal de fotos -->
+  <div id="modalFotos">
+    <div class="bg-white rounded-2xl p-4 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-lg" id="modalTitulo">Fotos</h3>
+        <button onclick="cerrarModal()" class="text-2xl text-gray-500 hover:text-black">&times;</button>
+      </div>
+      <div class="text-center mb-4">
+        <img id="fotoGrande" src="" class="mx-auto max-h-80 rounded-xl object-contain">
+      </div>
+      <div class="flex justify-center gap-3 mb-4">
+        <button onclick="fotoAnterior()" class="px-4 py-2 bg-gray-200 rounded-xl">← Anterior</button>
+        <span id="contadorFoto" class="py-2 text-sm text-gray-600"></span>
+        <button onclick="fotoSiguiente()" class="px-4 py-2 bg-gray-200 rounded-xl">Siguiente →</button>
+      </div>
+      <div id="modalGaleria" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
+    </div>
+  </div>
 
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
-    <script src="js/firebase-config.js"></script>
+  <footer class="text-center text-sm text-gray-500 py-8">
+    © 2026 Puertas Abiertas · Satélite Norte, Santa Cruz, Bolivia
+  </footer>
 
-    <script>
-        // Lista de todas las casas
-        var todasLasCasas = [];
-        var firebaseListo = firebaseConfig.apiKey && firebaseConfig.apiKey.indexOf("TU_API_KEY") === -1;
+  <!-- Datos de las casas + config -->
+  <script src="js/config.js"></script>
+  <script src="data/casas.js"></script>
 
-        // Fotos del modal
-        var fotosActuales = [];
-        var indiceFoto = 0;
+  <script>
+    // Lista que se está mostrando (para la galería)
+    var listaMostrada = [];
+    var fotosActuales = [];
+    var indiceFoto = 0;
 
-        // Casas de ejemplo (se muestran si no hay datos)
-        var casasEjemplo = [
-            {
-                id: "ejemplo1",
-                titulo: "Casa moderna con jardín",
-                direccion: "Av. Satélite Norte, cerca del mercado",
-                precio: 2800,
-                habitaciones: 3,
-                banos: 2,
-                tamanio: 140,
-                descripcion: "Hermosa casa recién remodelada, cocina integral, sala amplia.",
-                imagenes: ["casas/casa1.jpg"],
-                whatsapp: "59163614354",
-                nombre: "Propietario Demo",
-                tipo: "casa",
-                activo: true
-            },
-            {
-                id: "ejemplo2",
-                titulo: "Casa familiar amplia",
-                direccion: "Calle principal, Satélite Norte",
-                precio: 3500,
-                habitaciones: 4,
-                banos: 3,
-                tamanio: 180,
-                descripcion: "Ideal para familias. Garage y patio trasero. Zona segura.",
-                imagenes: [
-                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600",
-                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600"
-                ],
-                whatsapp: "59170000001",
-                nombre: "Familia López",
-                tipo: "casa",
-                activo: true
-            },
-            {
-                id: "ejemplo3",
-                titulo: "Departamento cómodo",
-                direccion: "Privada Estrella, Satélite Norte",
-                precio: 1800,
-                habitaciones: 2,
-                banos: 1,
-                tamanio: 75,
-                descripcion: "Perfecto para pareja. Amoblado. Ubicación tranquila.",
-                imagenes: [
-                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600"
-                ],
-                whatsapp: "59170000002",
-                nombre: "Ana R.",
-                tipo: "departamento",
-                activo: true
-            }
-        ];
+    // Formato de precio en Bs
+    function formatoPrecio(numero) {
+      return "Bs " + Number(numero).toLocaleString("es-BO");
+    }
 
-        // Formatear precio
-        function formatoPrecio(numero) {
-            return "Bs " + Number(numero).toLocaleString("es-BO");
+    // Dibujar tarjetas
+    function mostrarCasas(lista) {
+      var contenedor = document.getElementById("listaCasas");
+      var sinResultados = document.getElementById("sinResultados");
+      var contador = document.getElementById("contador");
+
+      contenedor.innerHTML = "";
+      listaMostrada = lista || [];
+
+      if (!lista || lista.length === 0) {
+        sinResultados.classList.remove("hidden");
+        contador.textContent = "0 casas encontradas";
+        return;
+      }
+
+      sinResultados.classList.add("hidden");
+      contador.textContent = lista.length + (lista.length === 1 ? " casa encontrada" : " casas encontradas");
+
+      for (var i = 0; i < lista.length; i++) {
+        var casa = lista[i];
+        var fotoPrincipal = "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600";
+        if (casa.imagenes && casa.imagenes.length > 0) {
+          fotoPrincipal = casa.imagenes[0];
         }
+        var cantidadFotos = (casa.imagenes && casa.imagenes.length) ? casa.imagenes.length : 0;
+        var textoFotos = cantidadFotos > 1
+          ? '<i class="fa-solid fa-images"></i> Ver ' + cantidadFotos + ' fotos'
+          : '<i class="fa-solid fa-image"></i> Ver foto';
 
-        // Guardamos la lista que se está mostrando (para abrir fotos correctamente)
-        var listaMostrada = [];
+        var tarjeta = document.createElement("div");
+        tarjeta.className = "bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm tarjeta";
 
-        // Dibujar las tarjetas
-        function mostrarCasas(lista) {
-            var contenedor = document.getElementById("listaCasas");
-            var sinResultados = document.getElementById("sinResultados");
-            var contador = document.getElementById("contador");
+        tarjeta.innerHTML =
+          '<div class="relative">' +
+            '<img src="' + fotoPrincipal + '" alt="' + (casa.titulo || "") + '" class="w-full h-48 object-cover" ' +
+              'onerror="this.src=\'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600\'">' +
+            '<span class="absolute top-3 left-3 bg-emerald-600 text-white text-xs px-3 py-1 rounded-full">' +
+              (casa.tipo || "casa") +
+            '</span>' +
+            '<button onclick="abrirGaleria(' + i + ')" ' +
+              'class="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white text-xs px-3 py-1.5 rounded-full">' +
+              textoFotos +
+            '</button>' +
+          '</div>' +
+          '<div class="p-4">' +
+            '<div class="flex justify-between items-start mb-1">' +
+              '<span class="font-bold text-xl text-emerald-700">' + formatoPrecio(casa.precio) + '</span>' +
+              '<span class="text-xs text-gray-500">/mes</span>' +
+            '</div>' +
+            '<h3 class="font-semibold text-gray-900 mb-1">' + (casa.titulo || "") + '</h3>' +
+            '<p class="text-sm text-gray-500 mb-2">' +
+              '<i class="fa-solid fa-location-dot text-emerald-500"></i> ' + (casa.direccion || "") +
+            '</p>' +
+            '<div class="flex gap-3 text-sm text-gray-600 mb-3">' +
+              '<span><i class="fa-solid fa-bed"></i> ' + casa.habitaciones + ' hab</span>' +
+              '<span><i class="fa-solid fa-bath"></i> ' + casa.banos + ' baños</span>' +
+              (casa.tamanio ? '<span><i class="fa-solid fa-ruler-combined"></i> ' + casa.tamanio + ' m²</span>' : '') +
+            '</div>' +
+            '<p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' +
+              (casa.descripcion || "") +
+            '</p>' +
+            '<div class="space-y-2">' +
+              // 1) Contactar al DUEÑO
+              '<button onclick="contactarDueño(\'' + (casa.whatsapp || "") + '\', \'' + (casa.titulo || "").replace(/'/g, "") + '\')" ' +
+                'class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-semibold text-sm">' +
+                '<i class="fa-brands fa-whatsapp"></i> Contactar dueño' +
+              '</button>' +
+              // 2) Avisar al INTERMEDIARIO (tú) que se va a alquilar / le interesa
+              '<button onclick="avisarIntermediario(\'' + (casa.titulo || "").replace(/'/g, "") + '\', \'' + (casa.direccion || "").replace(/'/g, "") + '\', ' + (casa.precio || 0) + ')" ' +
+                'class="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 py-2.5 rounded-xl font-semibold text-sm border border-blue-200">' +
+                '<i class="fa-solid fa-bell"></i> Ya se va a alquilar (avisar)' +
+              '</button>' +
+            '</div>' +
+          '</div>';
 
-            contenedor.innerHTML = "";
-            listaMostrada = lista || [];
+        contenedor.appendChild(tarjeta);
+      }
+    }
 
-            if (!lista || lista.length === 0) {
-                sinResultados.classList.remove("hidden");
-                contador.textContent = "0 casas encontradas";
-                return;
-            }
+    // Galería de fotos
+    function abrirGaleria(indice) {
+      var casa = listaMostrada[indice];
+      if (!casa || !casa.imagenes || casa.imagenes.length === 0) {
+        alert("No hay fotos disponibles");
+        return;
+      }
 
-            sinResultados.classList.add("hidden");
-            contador.textContent = lista.length + (lista.length === 1 ? " casa encontrada" : " casas encontradas");
+      fotosActuales = casa.imagenes;
+      indiceFoto = 0;
 
-            for (var i = 0; i < lista.length; i++) {
-                var casa = lista[i];
-                var fotoPrincipal = "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600";
-                if (casa.imagenes && casa.imagenes.length > 0) {
-                    fotoPrincipal = casa.imagenes[0];
-                }
+      document.getElementById("modalTitulo").textContent = casa.titulo || "Fotos de la casa";
+      document.getElementById("fotoGrande").src = fotosActuales[0];
+      document.getElementById("contadorFoto").textContent = "1 / " + fotosActuales.length;
 
-                var cantidadFotos = (casa.imagenes && casa.imagenes.length) ? casa.imagenes.length : 0;
-                var textoBotonFotos = cantidadFotos > 1
-                    ? '<i class="fa-solid fa-images"></i> Ver ' + cantidadFotos + ' fotos'
-                    : '<i class="fa-solid fa-image"></i> Ver foto';
+      var galeria = document.getElementById("modalGaleria");
+      galeria.innerHTML = "";
+      for (var i = 0; i < fotosActuales.length; i++) {
+        var img = document.createElement("img");
+        img.src = fotosActuales[i];
+        img.className = "w-full h-20 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-emerald-500";
+        img.onclick = (function (num) {
+          return function () {
+            indiceFoto = num;
+            document.getElementById("fotoGrande").src = fotosActuales[num];
+            document.getElementById("contadorFoto").textContent = (num + 1) + " / " + fotosActuales.length;
+          };
+        })(i);
+        galeria.appendChild(img);
+      }
 
-                // Crear tarjeta
-                var tarjeta = document.createElement("div");
-                tarjeta.className = "bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm tarjeta";
+      document.getElementById("modalFotos").classList.add("activo");
+    }
 
-                tarjeta.innerHTML =
-                    '<div class="relative">' +
-                        '<img src="' + fotoPrincipal + '" alt="' + casa.titulo + '" class="w-full h-48 object-cover" onerror="this.src=\'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600\'">' +
-                        '<span class="absolute top-3 left-3 bg-emerald-600 text-white text-xs px-3 py-1 rounded-full">' + (casa.tipo || "casa") + '</span>' +
-                        '<button onclick="abrirGaleria(' + i + ')" class="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white text-xs px-3 py-1.5 rounded-full">' +
-                            textoBotonFotos +
-                        '</button>' +
-                    '</div>' +
-                    '<div class="p-4">' +
-                        '<div class="flex justify-between items-start mb-1">' +
-                            '<span class="font-bold text-xl text-emerald-700">' + formatoPrecio(casa.precio) + '</span>' +
-                            '<span class="text-xs text-gray-500">/mes</span>' +
-                        '</div>' +
-                        '<h3 class="font-semibold text-gray-900 mb-1">' + casa.titulo + '</h3>' +
-                        '<p class="text-sm text-gray-500 mb-2"><i class="fa-solid fa-location-dot text-emerald-500"></i> ' + casa.direccion + '</p>' +
-                        '<div class="flex gap-3 text-sm text-gray-600 mb-3">' +
-                            '<span><i class="fa-solid fa-bed"></i> ' + casa.habitaciones + ' hab</span>' +
-                            '<span><i class="fa-solid fa-bath"></i> ' + casa.banos + ' baños</span>' +
-                            (casa.tamanio ? '<span><i class="fa-solid fa-ruler-combined"></i> ' + casa.tamanio + ' m²</span>' : '') +
-                        '</div>' +
-                        '<p class="text-sm text-gray-600 mb-4" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + (casa.descripcion || "") + '</p>' +
-                        '<div class="space-y-2">' +
-                            '<button onclick="contactarDueño(\'' + casa.whatsapp + '\', \'' + (casa.titulo || "").replace(/'/g, "") + '\')" ' +
-                                'class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-semibold text-sm">' +
-                                '<i class="fa-brands fa-whatsapp"></i> Contactar dueño' +
-                            '</button>' +
-                            '<button onclick="avisarIntermediario(\'' + (casa.titulo || "").replace(/'/g, "") + '\', \'' + (casa.direccion || "").replace(/'/g, "") + '\', ' + casa.precio + ')" ' +
-                                'class="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 py-2.5 rounded-xl font-semibold text-sm border border-blue-200">' +
-                                '<i class="fa-solid fa-bell"></i> Me interesa (avisar al intermediario)' +
-                            '</button>' +
-                        '</div>' +
-                    '</div>';
+    function cerrarModal() {
+      document.getElementById("modalFotos").classList.remove("activo");
+    }
 
-                contenedor.appendChild(tarjeta);
-            }
+    function fotoAnterior() {
+      if (fotosActuales.length === 0) return;
+      indiceFoto = (indiceFoto - 1 + fotosActuales.length) % fotosActuales.length;
+      document.getElementById("fotoGrande").src = fotosActuales[indiceFoto];
+      document.getElementById("contadorFoto").textContent = (indiceFoto + 1) + " / " + fotosActuales.length;
+    }
+
+    function fotoSiguiente() {
+      if (fotosActuales.length === 0) return;
+      indiceFoto = (indiceFoto + 1) % fotosActuales.length;
+      document.getElementById("fotoGrande").src = fotosActuales[indiceFoto];
+      document.getElementById("contadorFoto").textContent = (indiceFoto + 1) + " / " + fotosActuales.length;
+    }
+
+    // Cerrar modal al hacer clic fuera
+    document.getElementById("modalFotos").addEventListener("click", function (e) {
+      if (e.target === this) cerrarModal();
+    });
+
+    // Contactar al dueño por WhatsApp
+    function contactarDueño(telefono, titulo) {
+      var limpio = String(telefono).replace(/\D/g, "");
+      var mensaje = "Hola, vi tu anuncio en Puertas Abiertas y me interesa: \"" + titulo + "\". ¿Sigue disponible?";
+      window.open("https://wa.me/" + limpio + "?text=" + encodeURIComponent(mensaje), "_blank");
+    }
+
+    // Avisar al INTERMEDIARIO (tú) para que quites el anuncio
+    function avisarIntermediario(titulo, direccion, precio) {
+      var mensaje =
+        "Hola, te escribo desde Puertas Abiertas.\n\n" +
+        "La siguiente casa se va a alquilar (o ya se alquiló):\n" +
+        "• Título: " + titulo + "\n" +
+        "• Dirección: " + direccion + "\n" +
+        "• Precio: Bs " + precio + "\n\n" +
+        "Por favor quítala del sitio web. Gracias.";
+      window.open(
+        "https://wa.me/" + WHATSAPP_INTERMEDIARIO + "?text=" + encodeURIComponent(mensaje),
+        "_blank"
+      );
+    }
+
+    // Filtrar
+    function filtrar() {
+      var texto = document.getElementById("buscarTexto").value.toLowerCase().trim();
+      var maxPrecio = document.getElementById("filtroPrecio").value;
+      var minHab = parseInt(document.getElementById("filtroHab").value) || 0;
+
+      var filtradas = [];
+      for (var i = 0; i < CASAS.length; i++) {
+        var c = CASAS[i];
+        // Solo casas activas
+        if (c.activo === false) continue;
+
+        var coincideTexto = !texto ||
+          (c.titulo || "").toLowerCase().indexOf(texto) !== -1 ||
+          (c.direccion || "").toLowerCase().indexOf(texto) !== -1 ||
+          (c.descripcion || "").toLowerCase().indexOf(texto) !== -1;
+
+        var coincidePrecio = maxPrecio === "all" || !maxPrecio || Number(c.precio) <= Number(maxPrecio);
+        var coincideHab = Number(c.habitaciones) >= minHab;
+
+        if (coincideTexto && coincidePrecio && coincideHab) {
+          filtradas.push(c);
         }
+      }
+      mostrarCasas(filtradas);
+    }
 
-        // Abrir galería de fotos (usa la lista que se está mostrando)
-        function abrirGaleria(indice) {
-            var casa = listaMostrada[indice];
-            if (!casa || !casa.imagenes || casa.imagenes.length === 0) {
-                alert("No hay fotos disponibles");
-                return;
-            }
+    // Eventos
+    document.getElementById("buscarTexto").addEventListener("input", filtrar);
+    document.getElementById("filtroPrecio").addEventListener("change", filtrar);
+    document.getElementById("filtroHab").addEventListener("change", filtrar);
 
-            fotosActuales = casa.imagenes;
-            indiceFoto = 0;
-
-            document.getElementById("modalTitulo").textContent = casa.titulo || "Fotos de la casa";
-            document.getElementById("fotoGrande").src = fotosActuales[0];
-            document.getElementById("contadorFoto").textContent = "1 / " + fotosActuales.length;
-
-            // Miniaturas de todas las fotos
-            var galeria = document.getElementById("modalGaleria");
-            galeria.innerHTML = "";
-            for (var i = 0; i < fotosActuales.length; i++) {
-                var img = document.createElement("img");
-                img.src = fotosActuales[i];
-                img.className = "w-full h-24 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-emerald-500";
-                // Función para cambiar la foto grande al hacer clic
-                img.onclick = (function (numeroFoto) {
-                    return function () {
-                        indiceFoto = numeroFoto;
-                        document.getElementById("fotoGrande").src = fotosActuales[numeroFoto];
-                        document.getElementById("contadorFoto").textContent = (numeroFoto + 1) + " / " + fotosActuales.length;
-                    };
-                })(i);
-                galeria.appendChild(img);
-            }
-
-            document.getElementById("modalFotos").classList.add("activo");
-        }
-
-        function cerrarModal() {
-            document.getElementById("modalFotos").classList.remove("activo");
-        }
-
-        function fotoAnterior() {
-            if (fotosActuales.length === 0) return;
-            indiceFoto = (indiceFoto - 1 + fotosActuales.length) % fotosActuales.length;
-            document.getElementById("fotoGrande").src = fotosActuales[indiceFoto];
-            document.getElementById("contadorFoto").textContent = (indiceFoto + 1) + " / " + fotosActuales.length;
-        }
-
-        function fotoSiguiente() {
-            if (fotosActuales.length === 0) return;
-            indiceFoto = (indiceFoto + 1) % fotosActuales.length;
-            document.getElementById("fotoGrande").src = fotosActuales[indiceFoto];
-            document.getElementById("contadorFoto").textContent = (indiceFoto + 1) + " / " + fotosActuales.length;
-        }
-
-        // Cerrar modal con Escape o clic fuera
-        document.getElementById("modalFotos").addEventListener("click", function (e) {
-            if (e.target === this) cerrarModal();
-        });
-
-        // Contactar al dueño por WhatsApp
-        function contactarDueño(telefono, titulo) {
-            var limpio = String(telefono).replace(/\D/g, "");
-            var mensaje = "Hola, vi tu anuncio en Puertas Abiertas y me interesa: \"" + titulo + "\". ¿Sigue disponible?";
-            window.open("https://wa.me/" + limpio + "?text=" + encodeURIComponent(mensaje), "_blank");
-        }
-
-        // Avisar al INTERMEDIARIO que a alguien le gusta la casa
-        function avisarIntermediario(titulo, direccion, precio) {
-            var mensaje = "Hola, soy un interesado en Puertas Abiertas.\n\n" +
-                          "Me gusta esta casa:\n" +
-                          "• Título: " + titulo + "\n" +
-                          "• Dirección: " + direccion + "\n" +
-                          "• Precio: Bs " + precio + "\n\n" +
-                          "¿Me puedes ayudar a contactar al dueño o darme más info?";
-            window.open("https://wa.me/" + WHATSAPP_INTERMEDIARIO + "?text=" + encodeURIComponent(mensaje), "_blank");
-        }
-
-        // Filtrar casas
-        function obtenerListaFiltrada() {
-            var texto = document.getElementById("buscarTexto").value.toLowerCase().trim();
-            var maxPrecio = document.getElementById("filtroPrecio").value;
-            var minHab = parseInt(document.getElementById("filtroHab").value) || 0;
-
-            var filtradas = [];
-            for (var i = 0; i < todasLasCasas.length; i++) {
-                var c = todasLasCasas[i];
-                if (c.activo === false) continue;
-
-                var coincideTexto = !texto ||
-                    (c.titulo || "").toLowerCase().indexOf(texto) !== -1 ||
-                    (c.direccion || "").toLowerCase().indexOf(texto) !== -1 ||
-                    (c.descripcion || "").toLowerCase().indexOf(texto) !== -1;
-
-                var coincidePrecio = maxPrecio === "all" || !maxPrecio || Number(c.precio) <= Number(maxPrecio);
-                var coincideHab = Number(c.habitaciones) >= minHab;
-
-                if (coincideTexto && coincidePrecio && coincideHab) {
-                    filtradas.push(c);
-                }
-            }
-            return filtradas;
-        }
-
-        function filtrar() {
-            mostrarCasas(obtenerListaFiltrada());
-        }
-
-        // Cargar casas
-        function cargarCasas() {
-            // Primero datos locales (demo)
-            var locales = [];
-            try {
-                locales = JSON.parse(localStorage.getItem("demo_propiedades") || "[]");
-            } catch (e) {}
-
-            todasLasCasas = locales.concat(casasEjemplo);
-
-            // Si hay Firebase, escuchar en tiempo real
-            if (firebaseListo) {
-                propertiesRef.orderBy("createdAt", "desc").onSnapshot(
-                    function (snapshot) {
-                        var desdeFirebase = [];
-                        snapshot.forEach(function (doc) {
-                            var data = doc.data();
-                            data.id = doc.id;
-                            desdeFirebase.push(data);
-                        });
-
-                        // Combinar: Firebase primero, luego demo local
-                        var ids = {};
-                        for (var i = 0; i < desdeFirebase.length; i++) {
-                            ids[desdeFirebase[i].id] = true;
-                        }
-                        var extraLocal = [];
-                        for (var j = 0; j < locales.length; j++) {
-                            if (!ids[locales[j].id]) extraLocal.push(locales[j]);
-                        }
-
-                        todasLasCasas = desdeFirebase.concat(extraLocal);
-                        if (todasLasCasas.length === 0) {
-                            todasLasCasas = casasEjemplo;
-                        }
-                        filtrar();
-                    },
-                    function (error) {
-                        console.log("Error Firestore:", error);
-                        filtrar();
-                    }
-                );
-            } else {
-                filtrar();
-            }
-        }
-
-        // Eventos de los filtros
-        document.getElementById("buscarTexto").addEventListener("input", filtrar);
-        document.getElementById("filtroPrecio").addEventListener("change", filtrar);
-        document.getElementById("filtroHab").addEventListener("change", filtrar);
-
-        // Iniciar
-        cargarCasas();
-    </script>
+    // Iniciar
+    filtrar();
+  </script>
 </body>
 </html>
